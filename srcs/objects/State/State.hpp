@@ -29,6 +29,7 @@ class State
 
 		int		getScore() const;
 		void	setScore(const int *target, const e_heuristic& h = H_MANHATTAN, const e_algorithm& a = A_STAR);
+		void	updateScore(const int& piece, const int *target, const e_heuristic& h = H_MANHATTAN, const e_algorithm& a = A_STAR);
 
 		int		getNbrMoves() const;
 		void	setNbrMoves(const int& nbr_moves);
@@ -61,8 +62,11 @@ class State
 		// ----- Heuristic ----- //
 
 		int		scoreManhattan(const int *target);	// Manhattan Heuristic
-		int		scoreEuclidean(const int *target);	// Euclidean Heuristic
+		int		updateManhattan(const int *target, const int& piece);
+		int		scoreLinearConflict(const int *target);	// Linear Conflict Heuristic
+		int		updateLinearConflict(const int *target, const int& piece);
 		int		scoreMisplaced(const int *target);	// Misplaced Heuristic
+		int		updateMisplaced(const int *target, const int& piece);
 };
 
 // ----- Operator Overloading ----- //

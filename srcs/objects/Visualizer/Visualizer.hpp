@@ -29,7 +29,7 @@ class Visualizer {
         WINDOW                      *m_win;
         bool                        m_running;
 
-        void        init();
+        int         init();
         void        print_array();
         void        key_hook();
         void        move_to(int x, int y);

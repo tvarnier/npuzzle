@@ -12,6 +12,7 @@ bool compare::operator() (State *a, State *b) const
 
 Puzzle::Puzzle() : m_start(new State()), m_target(new State())
 {
+    remove("results.txt");
     Puzzle::reset();
 }
 

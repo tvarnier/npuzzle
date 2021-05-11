@@ -80,7 +80,7 @@ static bool get_array(std::istream& strm, int *array, int& line_count, const int
         if (regex_row(line))                                    // If Line is a row
         {
             if (row_count >= length)                            //  If number Row greater than Length, return Error
-                return (lib::printerr(RED, "ERROR: Too much rows row(s) : Size is ", length));
+                return (lib::printerr(RED, "ERROR: Too much row(s), ", line_count, " row(s) : Size is ", length));
             if (!regex_row_wlength(line, length))               //  If number of element in Row different than Length, return Error
                 return (lib::printerr(RED, "ERROR: Line ", line_count, " : \"", line, "\" : Number of columns incorrect, Size is ", length));
             std::stringstream   line_strm(line);
@@ -116,24 +116,24 @@ static bool     verif_array(const int *array, const int& size)
             verif[array[i]] = true;
         else if (verif[array[i]])                                   // Else if piece already found, return Error
         {
-            delete (verif);
+            delete[] (verif);
             return (lib::printerr(RED, "ERROR: Value '", array[i], "' is used at least twice"));
         }
         else if (array[i] < 0)                                      // Else if piece smaller than range of number, return Error
         {
-            delete (verif);
+            delete[] (verif);
             return (lib::printerr(RED, "ERROR: Value '", array[i], "' is too small, must be positive"));
         }
         else                                                        // Else Piece greater than range of number, return Error
         {
-            delete (verif);
+            delete[] (verif);
             return (lib::printerr(RED, "ERROR: Value '", array[i], "' is too high, must be strictly smaller than ", size, " (Size * Size)"));
         }
     }
 
-    for (int i = 0; i < size; ++i) if (!verif[i]) { delete (verif); return (lib::printerr(RED, "ERROR: Missing Value '", i, "'")); }    // Return Error if missing a value
+    for (int i = 0; i < size; ++i) if (!verif[i]) { delete[] (verif); return (lib::printerr(RED, "ERROR: Missing Value '", i, "'")); }    // Return Error if missing a value
 
-    delete (verif);
+    delete[] (verif);
     return (false);                                                 // Return False, everything goes well
 }
 
@@ -315,7 +315,7 @@ int     Puzzle::init()
     else if (m_options.generation)                      // Else if generate option true, get Length from generated length option
         m_infos.length = m_options.generation_length;
     if (m_infos.length <= 2 || m_infos.length > 256)    // If Length smaller than 3 and greater than 256, return Error
-        return (lib::printerr(RED, "ERROR: Size must be greater strictly greater than 2 and smaller than 256"));
+        return (lib::printerr(RED, "ERROR: Size must be strictly greater than 2 and smaller than 256"));
     m_start->setLength(m_infos.length);                 // Set Length of Start
     m_target->setLength(m_infos.length);                // Set Lenght of Target
     m_infos.size = m_infos.length * m_infos.length;     // Set Size of Puzzle

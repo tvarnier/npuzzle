@@ -29,7 +29,7 @@ typedef enum {
 
 typedef enum {
 	H_MANHATTAN,
-	H_EUCLIDEAN,
+	H_LINEARCONFLICT,
 	H_MISPLACED
 } e_heuristic;
 

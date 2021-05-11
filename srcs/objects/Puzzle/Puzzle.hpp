@@ -77,6 +77,8 @@ class Puzzle
         void    generate_successors(const State *current);              // Try to Create Successor in all 4 directions
         void    manage_sucessor(const State *current, int direction);   // Create Successor State and Manage it
 
+        void    sucess(State *current);
+
         int     launchVisualizer();
 };
 

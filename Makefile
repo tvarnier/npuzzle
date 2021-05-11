@@ -1,6 +1,6 @@
 NAME		= npuzzle
 
-CC			= g++-9
+CC			= clang++ -std=c++17
 FLAGS		= -g -Wall -Wextra -Werror -O3
 LIB			= lib/lib.a
 
@@ -9,12 +9,14 @@ INCLUDES	= ./includes/npuzzle.hpp
 SRC			= main.cpp
 
 OBJ			= State/State.cpp \
+			  State/State_heuristics.cpp \
 			  Puzzle/Puzzle.cpp \
 			  Puzzle/Puzzle_parseOptions.cpp \
 			  Puzzle/Puzzle_init.cpp \
 			  Puzzle/Puzzle_generate_start_array.cpp \
 			  Puzzle/Puzzle_isSolvable.cpp \
 			  Puzzle/Puzzle_solve.cpp \
+			  Puzzle/Puzzle_sucess.cpp \
 			  Visualizer/Visualizer.cpp
 OBJ_DIR		= objects/
 OBJ_SUBDIR	= objects/State \
@@ -54,6 +56,7 @@ $(BIN_PATH)%.o: $(SRC_PATH)%.cpp
 clean:
 	@ make -C lib clean
 	@ rm -rf $(BIN_PATH)
+	@ rm -rf results.txt
 
 fclean: clean
 	@ rm -rf $(LIB)

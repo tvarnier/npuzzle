@@ -14,7 +14,7 @@ static int  print_program_usage()
                             "  -alg <SEARCH_ALGORITHM>, --algorithm <SEARCH_ALGORITHM>\n",
                             "                       <SEARCH_ALGORITHM> available (astar, uniform, greedy), default astar\n",
                             "  -hr <HEURISTIC>, --heuristic <HEURISTIC>\n",
-                            "                       <HEURISTIC> available (manhattan, euclidean, misplaced), default manahattan\n",
+                            "                       <HEURISTIC> available (manhattan, linearConflict, misplaced), default manahattan\n",
                             "  -gen <GENERATION_LENGTH> [<GENERATION_ITERATION>], --generation <GENERATION_LENGTH. [<GENERATION_ITERATION>]\n",
                             "                       <GENERATION_LENGTH> must be greater than 2 and smaller or equal than 256\n",
                             "                       <GENERATION_ITERATION> to determine the number of iterations used in generation, default 10000\n",
@@ -64,14 +64,14 @@ int     Puzzle::parseOptions(const int& ac, char **av)
             ++i;
             if (i < ac && !std::strcmp(av[i], "manhattan"))
                 Puzzle::setHeuristic(H_MANHATTAN);
-            else if (i < ac && !std::strcmp(av[i], "euclidean"))
-                Puzzle::setHeuristic(H_EUCLIDEAN);
+            else if (i < ac && !std::strcmp(av[i], "linearConflict"))
+                Puzzle::setHeuristic(H_LINEARCONFLICT);
             else if (i < ac && !std::strcmp(av[i], "misplaced"))
                 Puzzle::setHeuristic(H_MISPLACED);
             else
                 return (print_program_usage());
         }
-        else if (!std::strcmp(av[i], "-gen") || !std::strcmp(av[i], "--generation"))    // GENEREATIO
+        else if (!std::strcmp(av[i], "-gen") || !std::strcmp(av[i], "--generation"))    // GENEREATION
         {
             ++i;
             if (i < ac && is_number(av[i]))

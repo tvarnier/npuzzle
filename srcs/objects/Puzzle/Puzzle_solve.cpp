@@ -14,11 +14,12 @@
 static State    *generate_child(const State *current, int piece, const int *target, const e_heuristic& heuristic, const e_algorithm& algorithm)
 {
     State   *child = new State(*current);               // Create Child from Current
+    int     zero_position = current->getZeroPosition();
 
     child->swapZeroPosition(piece);                     // Swap Zero Position with target Piece
     child->setNbrMoves(current->getNbrMoves() + 1);     // Add one more move than Current
     child->setHash();                                   // Set Hash from Array
-    child->setScore(target, heuristic, algorithm);      // Set Score depending on Algorithm ans Heuristic
+    child->updateScore(zero_position, target, heuristic, algorithm); // Update Score depending on Algorithm and Heuristic
     child->setParent((State*)current);                  // Set Parent of Child to Current
 
     return (child);
@@ -80,27 +81,6 @@ void    Puzzle::generate_successors(const State *current)
 }
 
 /*****
-** Generate steps
-**
-** @param current[in]       : Current State selected
-** @param steps[out]        : List of Steps required to get from Start to Target
-** @param number_steps[out] : Number of Steps required to get from Start to Target
-*****/
-static void generate_steps(State *current, std::list<State*>& steps, int& number_steps)
-{
-    State   *tmp;
-
-    tmp  = current;
-
-    while (tmp != nullptr)              // From Last State, Insert them in Steps List
-    {
-        steps.push_front(tmp);
-        tmp = tmp->getParent();
-    }
-    number_steps = steps.size() - 1;    // Set Number of steps
-}
-
-/*****
 ** Solve Puzzle
 **
 ** @return      : 0 If Puzzle solved, else 1
@@ -112,6 +92,9 @@ int         Puzzle::solve()
     if (m_infos.initalize == false)     // If Puzzle not initialized, return Error
         return (lib::printerr(RED, "ERROR : The puzzle isn't initialize"));
 
+    if ((*m_start) == (*m_target))      // If Puzzle is already solved, return Error
+        return (lib::printerr(RED, "ERROR : The puzzle is already solved"));
+
     m_queue.insert(new State(*m_start));                // Insert Start State in Queue
     m_list[m_start->getHash()] = *(m_queue.begin());    // Insert Start in List
     while (!m_queue.empty())                // While States not analized in Queue
@@ -121,22 +104,9 @@ int         Puzzle::solve()
         m_queue.erase(m_queue.begin());     // Remove first element of Queue
         current->setDone();                 // Set State as analized
 
-        /*lib::printendl(BOLD, "===== CURRENT =====");
-        current->print();
-        lib::printendl(" :: ", current->getScore());*/
-
         if (*current == *m_target)          // If State selected is Target State, Win
         {
-            m_infos.max_state_memory = m_list.size();   // Get maximum number of States in memory
-            lib::printendl(BOLD, GREEN, "----- WIN -----");
-            lib::printendl("C :: ", m_infos.state_selected);
-            current->print();
-
-            generate_steps(current, m_infos.steps, m_infos.number_steps);   // Get Steps to get from Start to Target
-            lib::printendl("STEPS :: ", m_infos.number_steps);
-
-            if (m_options.visualizer)
-                launchVisualizer();
+            sucess(current);
             return (0);
         }
         else                                // Else if isn't Target, generate Successors

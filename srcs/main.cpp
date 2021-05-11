@@ -10,7 +10,7 @@ int		main(int ac, char **av)
 	if (puzzle.init())
 		return (1);
 
-	lib::printendl(BOLD, "=====  Start =====");
+	lib::printendl(BOLD, "=====  Start  =====");
 	puzzle.getStart()->print();
 
 	lib::printendl(BOLD, "=====  Target =====");

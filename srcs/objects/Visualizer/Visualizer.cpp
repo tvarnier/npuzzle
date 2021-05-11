@@ -18,7 +18,7 @@ Visualizer::Visualizer(puzzleInfos infos) : m_infos(infos), m_length(infos.lengt
 
 int     Visualizer::launch()
 {
-    init();
+    if (init()) return (1);
 
     print_array();
     while (m_running)
@@ -34,24 +34,33 @@ int     Visualizer::launch()
 
 // ----- PRIVATE FUNCTIONS ----- //
 
-void    Visualizer::init()
+int     Visualizer::init()
 {
     struct winsize size;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-
+ 
     m_running = true;
 
     m_width = size.ws_col;
     m_height = size.ws_row;
+
+    if (!freopen("/dev/tty", "r", stdin)) {
+        perror("/dev/tty");
+        return (1);
+    }
 
     initscr();
 
     m_win = newwin(m_height, m_width, 0, 0);
     noecho();
     cbreak();
-    nodelay(m_win, TRUE);
+    keypad(m_win, TRUE);
+    nodelay(m_win, FALSE);
     box(m_win, 0, 0);
+    curs_set(0);
     wrefresh(m_win);
+
+    return (0);
 }
 
 void    Visualizer::print_array()
@@ -76,25 +85,23 @@ void    Visualizer::print_array()
 
 void    Visualizer::key_hook()
 {
-    int     key;
+    int     key(0);
 
     if ((key = wgetch(m_win)) == ERR)
         return ;
 
-    wprintw(m_win, " :: %c ", key);
-    wrefresh(m_win);
     switch (key)
     {
         case 'q' : // QUIT
             m_running = false;
             break ;
-        case 67 : // RIGHT ARROW
+        case KEY_RIGHT : // RIGHT ARROW
             ++m_current;
             if (m_current == m_infos.steps.end())
                 --m_current;
             print_array();
             break ;
-        case 68 : // LEFT ARROW
+        case KEY_LEFT : // LEFT ARROW
             if (m_current != m_infos.steps.begin())
                 --m_current;
             print_array();
