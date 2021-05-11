@@ -14,7 +14,7 @@ static int  print_program_usage()
                             "  -alg <SEARCH_ALGORITHM>, --algorithm <SEARCH_ALGORITHM>\n",
                             "                       <SEARCH_ALGORITHM> available (astar, uniform, greedy), default astar\n",
                             "  -hr <HEURISTIC>, --heuristic <HEURISTIC>\n",
-                            "                       <HEURISTIC> available (manhattan, linearConflict, misplaced), default manahattan\n",
+                            "                       <HEURISTIC> available (manhattan, linearConflict, misplaced), default manhattan\n",
                             "  -gen <GENERATION_LENGTH> [<GENERATION_ITERATION>], --generation <GENERATION_LENGTH. [<GENERATION_ITERATION>]\n",
                             "                       <GENERATION_LENGTH> must be greater than 2 and smaller or equal than 256\n",
                             "                       <GENERATION_ITERATION> to determine the number of iterations used in generation, default 10000\n",
