@@ -2,7 +2,7 @@
 
 <br>
 
-L'objectif de ce projet est de créer un programme qui résout le [jeu de taquin](https://fr.wikipedia.org/wiki/Taquin)) en utilisant un algorithme de recherche [A*](https://fr.wikipedia.org/wiki/Algorithme_A*)
+L'objectif de ce projet est de créer un programme qui résout le [jeu de taquin](https://fr.wikipedia.org/wiki/Taquin) en utilisant un algorithme de recherche [A*](https://fr.wikipedia.org/wiki/Algorithme_A*)
 
 <br>
 
