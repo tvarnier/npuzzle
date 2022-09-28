@@ -84,7 +84,8 @@ Lancer la commande `make` pour compiler le projet, Puis :
    * `▶` etape suivante
    * `q` pour quitter
 
-Le programme lira sur l'entrée standard si `-gen` n'est pas utilisé pour definir d'état de départ
+<br>
 
-le script `res_npuzzle-gen.py` permet de generer des puzzle que ce soit pour l'état de départ ou l'état objectif, exemple : `./res_npuzzle-gen.py 3 -s`
+*Le programme lira sur l'entrée standard si `-gen` n'est pas utilisé pour definir d'état de départ*
 
+*le script `res_npuzzle-gen.py` permet de generer des puzzle que ce soit pour l'état de départ ou l'état objectif, exemple : `./res_npuzzle-gen.py 3 -s`*
