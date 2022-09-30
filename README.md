@@ -79,7 +79,7 @@ Lancer la commande `make` pour compiler le projet, Puis :
         11  6  8 13
          5 12 15 14
         ```
- * `[-visu]` pour lancer le visualisateur :
+ * `-visu` pour lancer le visualisateur :
    * `◀` etape precedente
    * `▶` etape suivante
    * `q` pour quitter
